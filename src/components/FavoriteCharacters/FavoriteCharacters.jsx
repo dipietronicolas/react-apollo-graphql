@@ -17,7 +17,7 @@ const FavoriteCharacters = () => {
       }
     });
   */
-  const [loadCharacters, { called, loading, data }] = useLazyQuery(
+  const [loadCharacters, { loading, data }] = useLazyQuery(
     GET_CHARACTERS_BY_ID, {
     variables: {
       ids: favorites.map(fav => fav.id)
@@ -26,7 +26,7 @@ const FavoriteCharacters = () => {
 
   React.useEffect(() => {
     loadCharacters();
-  }, [])
+  }, [loadCharacters])
 
   return (
     <Box>

@@ -1,6 +1,7 @@
 import React from 'react';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import Spinner from '../Spinner/Spinner';
+import Paginator from '../Paginator/Paginator';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS } from '../../GraphQL/Queries';
 import { Box, Flex, Button } from '@chakra-ui/react';
@@ -9,7 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const GetUsers = () => {
 
-  const { loading, data } = useQuery(GET_CHARACTERS);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  
+  const { loading, data } = useQuery(GET_CHARACTERS, {
+    variables: {
+      page: currentPage
+    }
+  });
 
   const dispatch = useDispatch();
   const characters = useSelector(state => state.characters.characters);
@@ -17,6 +24,10 @@ const GetUsers = () => {
   React.useEffect(() => {
     data && dispatch({ type: 'ADD_CHARACTERS', payload: data.characters.results })
   }, [data, dispatch])
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  }
 
   return (
     <Box>
@@ -36,6 +47,7 @@ const GetUsers = () => {
             })
         }
       </Flex>
+      <Paginator handlePageChange={handlePageChange} />
     </Box>
   )
 }
