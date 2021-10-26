@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Text, Center } from '@chakra-ui/react';
 import GetUsers from '../components/GetUsers/GetUsers';
 import CharacterDatail from '../components/CharacterDetail/CharacterDetail';
 import FavoriteCharacters from '../components/FavoriteCharacters/FavoriteCharacters';
@@ -18,7 +19,9 @@ const Router = () => {
           <FavoriteCharacters />
         </Route>
         <Route>
-          404
+          <Center minH="80vh">
+            <Text fontSize="6xl" mx="auto">404</Text>
+          </Center>
         </Route>
       </Switch>
     </BrowserRouter>
