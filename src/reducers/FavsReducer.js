@@ -1,10 +1,8 @@
-
-
 const initialState = {
   favCharacters: []
 }
 
-export const FavsReducer = (state = initialState, action) => {
+const FavsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_FAV_CHAR': {
       return {

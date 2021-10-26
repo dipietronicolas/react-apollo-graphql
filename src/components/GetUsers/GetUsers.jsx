@@ -5,10 +5,18 @@ import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS } from '../../GraphQL/Queries';
 import { Box, Flex, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const GetUsers = () => {
 
   const { loading, data } = useQuery(GET_CHARACTERS);
+
+  const dispatch = useDispatch();
+  const characters = useSelector(state => state.characters.characters);
+
+  React.useEffect(() => {
+    data && dispatch({ type: 'ADD_CHARACTERS', payload: data.characters.results })
+  }, [data, dispatch])
 
   return (
     <Box>
@@ -21,9 +29,9 @@ const GetUsers = () => {
         alignItems="center"
         flexWrap="wrap">
         {
-          loading
+          loading && characters.length > 0
             ? <Spinner />
-            : data.characters.results.map((character) => {
+            : characters.map((character) => {
               return <CharacterCard key={character.id} {...character} />
             })
         }

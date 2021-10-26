@@ -1,21 +1,32 @@
 import React from 'react';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import Spinner from '../Spinner/Spinner';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { GET_CHARACTERS_BY_ID } from '../../GraphQL/Queries';
-import { Box, Flex, Button } from '@chakra-ui/react';
+import { Box, Flex, Center, Text, Button } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const FavoriteCharacters = () => {
 
-  const favorites = useSelector(state => state.favCharacters);
-
-  const { loading, data } = useQuery(GET_CHARACTERS_BY_ID, {
+  const favorites = useSelector(state => state.favorites.favCharacters);
+  /*
+    const { loading, data } = useQuery(GET_CHARACTERS_BY_ID, {
+      variables: {
+        ids: favorites.map(fav => fav.id)
+      }
+    });
+  */
+  const [loadCharacters, { called, loading, data }] = useLazyQuery(
+    GET_CHARACTERS_BY_ID, {
     variables: {
       ids: favorites.map(fav => fav.id)
     }
   });
+
+  React.useEffect(() => {
+    loadCharacters();
+  }, [])
 
   return (
     <Box>
@@ -28,11 +39,19 @@ const FavoriteCharacters = () => {
         alignItems="center"
         flexWrap="wrap">
         {
-          loading
-            ? <Spinner />
-            : data.charactersByIds.map((character) => {
+          (data && data.charactersByIds[0].id !== null)
+            ? data.charactersByIds.map((character) => {
               return <CharacterCard key={character.id} {...character} isFav={true} />
             })
+            : loading && <Spinner />
+        }
+        {
+          (favorites.length === 0 && loading === false) &&
+          <Center>
+            <Text fontSize="6xl">
+              No hay personajes en favoritos
+            </Text>
+          </Center>
         }
       </Flex>
     </Box>

@@ -2,15 +2,17 @@ import React from 'react';
 import { Box, Flex, Text, Image, IconButton } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { StarIcon } from '@chakra-ui/icons';
-
+import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const CharacterCard = ({ id, name, image, isFav = false }) => {
 
   const [isFavorite, setIsFavorite] = React.useState(false);
 
-  // Redux
   const dispatch = useDispatch();
+
+  const handleDeleteButton = () => {
+    dispatch({ type: 'REMOVE_CHARACTER_BY_ID', payload: id })
+  }
 
   const handleFavoriteButton = () => {
     setIsFavorite(!isFavorite);
@@ -27,13 +29,24 @@ const CharacterCard = ({ id, name, image, isFav = false }) => {
         <Image src={image} alt={`${name} picture`} />
       </Link>
       <Flex justify="space-between" mt={3}>
-        <Text fontSize="2xl">{name}</Text>
-        <IconButton
-          aria-label="Search database"
-          variant="outline"
-          onClick={handleFavoriteButton}
-          color={isFavorite ? "teal" : "gray.200"}
-          icon={<StarIcon />} />
+        <Text fontSize="xl">{name}</Text>
+        <Box>
+          {
+            !isFav && (
+              <IconButton
+                aria-label="delete from store"
+                colorScheme="red"
+                onClick={handleDeleteButton}
+                icon={<DeleteIcon />} />
+            )
+          }
+          <IconButton
+            aria-label="add to favorite"
+            variant="outline"
+            onClick={handleFavoriteButton}
+            color={isFavorite ? "teal" : "gray.200"}
+            icon={<StarIcon />} />
+        </Box>
       </Flex>
     </Box>
   )
