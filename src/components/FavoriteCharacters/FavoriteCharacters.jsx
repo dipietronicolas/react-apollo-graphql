@@ -26,7 +26,7 @@ const FavoriteCharacters = () => {
 
   React.useEffect(() => {
     loadCharacters();
-  }, [loadCharacters])
+  }, [])
 
   return (
     <Box>
@@ -49,7 +49,7 @@ const FavoriteCharacters = () => {
           (favorites.length === 0 && loading === false) &&
           <Center>
             <Text fontSize="6xl">
-              No hay personajes en favoritos
+              There are no favorite characters
             </Text>
           </Center>
         }

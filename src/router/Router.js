@@ -4,6 +4,7 @@ import { Text, Center } from '@chakra-ui/react';
 import GetUsers from '../components/GetUsers/GetUsers';
 import CharacterDatail from '../components/CharacterDetail/CharacterDetail';
 import FavoriteCharacters from '../components/FavoriteCharacters/FavoriteCharacters';
+import AddPersonForm from '../components/AddPersonForm/AddPersonForm';
 
 const Router = () => {
   return (
@@ -17,6 +18,9 @@ const Router = () => {
         </Route>
         <Route path="/favorites">
           <FavoriteCharacters />
+        </Route>
+        <Route path="/addperson">
+          <AddPersonForm />
         </Route>
         <Route>
           <Center minH="80vh">

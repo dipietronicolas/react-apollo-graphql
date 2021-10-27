@@ -42,3 +42,19 @@ export const GET_CHARACTERS_BY_ID = gql`
     }
   }
 `
+
+export const QUERY_EXAMPLE = gql`
+  query {
+    personCount
+  }
+`
+
+export const ADD_USER = gql`
+  mutation($name: String!, $email: String!){
+    addUser(name: $name, email: $email) {
+      id
+      name
+      email
+    }
+  }
+`
