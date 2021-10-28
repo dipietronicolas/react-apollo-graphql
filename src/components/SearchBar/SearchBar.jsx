@@ -1,4 +1,7 @@
 import React from 'react';
+import { useLazyQuery } from '@apollo/client';
+import { GET_CHARACTERS } from '../../GraphQL/Queries';
+import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import {
   Input, FormControl, InputGroup, InputRightElement, FormErrorMessage, Button
@@ -6,14 +9,32 @@ import {
 
 
 const SearchBar = () => {
+
+  const [searchWord, setSearchWord] = React.useState('');
+  const dispatch = useDispatch();
+
+  const [search, { data }] = useLazyQuery(GET_CHARACTERS, {
+    variables: {
+      filter: {
+        name: searchWord
+      }
+    }
+  });
+
+  React.useEffect(() => {
+    (searchWord.length > 0) && search();
+  }, [searchWord, search])
+
+  React.useEffect(() => {
+    data && dispatch({ type: 'ADD_CHARACTERS', payload: data.characters.results });
+  }, [data, dispatch])
+
   return (
     <Formik
       initialValues={{ search: "" }}
       onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          actions.setSubmitting(false)
-        }, 1000)
+        setSearchWord(values.search)
+        actions.setSubmitting(false)
       }} >
       {(props) => (
         <Form>
