@@ -19,7 +19,7 @@ const Router = () => {
         <Route path="/favorites">
           <FavoriteCharacters />
         </Route>
-        <Route path="/addperson">
+        <Route path="/signin">
           <AddPersonForm />
         </Route>
         <Route>

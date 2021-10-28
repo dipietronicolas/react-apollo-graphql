@@ -4,9 +4,9 @@ import Spinner from '../Spinner/Spinner';
 import Paginator from '../Paginator/Paginator';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS } from '../../GraphQL/Queries';
-import { Box, Flex, Button } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Box, Flex } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
+import HomeBanner from '../HomeBanner/HomeBanner';
 
 const GetUsers = () => {
 
@@ -31,9 +31,7 @@ const GetUsers = () => {
 
   return (
     <Box>
-      <Button as={Link} to="/favorites" variant="link" p={6} mx="auto" my={6}>
-        Favorites
-      </Button>
+      <HomeBanner />
       <Flex
         minH="100vh"
         justifyContent="space-around"
