@@ -49,12 +49,4 @@ export const QUERY_EXAMPLE = gql`
   }
 `
 
-export const ADD_USER = gql`
-  mutation($name: String!, $email: String!){
-    addUser(name: $name, email: $email) {
-      id
-      name
-      email
-    }
-  }
-`
+

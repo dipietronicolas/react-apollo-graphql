@@ -26,7 +26,7 @@ const FavoriteCharacters = () => {
 
   React.useEffect(() => {
     loadCharacters();
-  }, [])
+  }, [loadCharacters])
 
   return (
     <Box>
