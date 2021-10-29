@@ -13,6 +13,7 @@ import { motion } from "framer-motion"
 const GetUsers = () => {
 
   const [currentPage, setCurrentPage] = React.useState(1);
+  const pageRef = React.useRef(null);
 
   const { loading, data } = useQuery(GET_CHARACTERS, {
     variables: {
@@ -32,7 +33,7 @@ const GetUsers = () => {
   }
 
   return (
-    <Box>
+    <Box ref={pageRef}>
       <HomeBanner />
       <Flex
         minH="100vh"

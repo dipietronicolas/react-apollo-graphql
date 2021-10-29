@@ -16,6 +16,7 @@ const SignupSchema = Yup.object({
     .matches(passwordRegex, 
       'Password must have at least one capital letter, a non capital letter, one number and a non alphanumeric character'),
   confirmPassword: Yup.string()
+    .required()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 

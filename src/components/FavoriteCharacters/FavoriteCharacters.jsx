@@ -24,36 +24,40 @@ const FavoriteCharacters = () => {
       <Button as={Link} to="/" colorScheme="teal" p={6} mx="auto" my={6}>
         Home
       </Button>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: { opacity: 1 },
-          hidden: { opacity: 0 },
-        }}
-        transition={{ delay: 0.5 }}>
-        <Flex
-          minH="80vh"
-          justifyContent="space-around"
-          alignItems="center"
-          flexWrap="wrap">
-          {
-            (data && data.charactersByIds[0].id !== null)
-              ? data.charactersByIds.map((character) => {
-                return <CharacterCard key={character.id} {...character} isFav={true} />
-              })
-              : loading && <Spinner />
-          }
-          {
-            (favorites.length === 0 && loading === false) &&
-            <Center>
-              <Text fontSize="6xl">
-                There are no favorite characters
-              </Text>
-            </Center>
-          }
-        </Flex>
-      </motion.div>
+      <Flex
+        minH="80vh"
+        justifyContent="space-around"
+        alignItems="center"
+        flexWrap="wrap">
+
+        {
+          (data && data.charactersByIds[0].id !== null)
+            ? data.charactersByIds.map((character) => {
+              return (
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: { opacity: 0 },
+                  }}
+                  transition={{ delay: 0.5 }}>
+                  <CharacterCard key={character.id} {...character} isFav={true} />
+                </motion.div>
+              )
+            })
+            : loading && <Spinner />
+        }
+        {
+          (favorites.length === 0 && loading === false) &&
+          <Center>
+            <Text fontSize="6xl">
+              There are no favorite characters
+            </Text>
+          </Center>
+        }
+
+      </Flex>
     </Box>
   )
 }
