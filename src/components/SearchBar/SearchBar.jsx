@@ -42,7 +42,7 @@ const SearchBar = () => {
             {({ field, form }) => (
               <FormControl isInvalid={form.errors.search && form.touched.search}>
                 <InputGroup size="md" >
-                  <Input {...field} id="search" placeholder="Search" w="20rem" />
+                  <Input {...field} id="search" placeholder="Search" w={{ base: "18rem", md: "20rem"}} />
                   <FormErrorMessage>{form.errors.search}</FormErrorMessage>
                   <InputRightElement width="4.5rem" >
                     <Button

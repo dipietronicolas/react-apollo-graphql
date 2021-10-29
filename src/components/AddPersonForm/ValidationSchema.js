@@ -13,7 +13,8 @@ const SignupSchema = Yup.object({
     .required('No password provided.')
     .min(8, 'Password is too short - should be 8 chars minimum.')
     .max(32, 'Password is too long - should be 32 chars maximum.')
-    .matches(passwordRegex, 'Password can only contain Latin letters.'),
+    .matches(passwordRegex, 
+      'Password must have at least one capital letter, a non capital letter, one number and a non alphanumeric character'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })

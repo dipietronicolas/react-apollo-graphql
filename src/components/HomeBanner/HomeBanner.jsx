@@ -6,9 +6,13 @@ import SearchBar from '../SearchBar/SearchBar';
 
 const HomeBanner = () => {
   return (
-    <Box h="18rem" width="auto" mb={12}>
+    <Box h={{ base: "21rem", md: "18rem"}} width="auto" mb={12}>
       <Image src={Banner} alt="rick and morty banner" w="100%" h="15rem" fit="cover" />
-      <Flex justify="space-around" align="center" h="3rem">
+      <Flex 
+        justify="space-around" 
+        flexDirection={{ base: "column-reverse", md: "row"}} 
+        align="center" 
+        h={{ base: "8rem", md: "3rem"}}>
         <Box>
           <SearchBar />
         </Box>
