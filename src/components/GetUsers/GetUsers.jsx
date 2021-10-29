@@ -7,11 +7,13 @@ import { GET_CHARACTERS } from '../../GraphQL/Queries';
 import { Box, Flex } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import HomeBanner from '../HomeBanner/HomeBanner';
+// Framer-motion
+import { motion } from "framer-motion"
 
 const GetUsers = () => {
 
   const [currentPage, setCurrentPage] = React.useState(1);
-  
+
   const { loading, data } = useQuery(GET_CHARACTERS, {
     variables: {
       page: currentPage
@@ -40,8 +42,16 @@ const GetUsers = () => {
         {
           loading && characters.length > 0
             ? <Spinner />
-            : characters.map((character) => {
-              return <CharacterCard key={character.id} {...character} />
+            : characters.map((character, i) => {
+              return (
+                <motion.div
+                  key={character.id}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 25, opacity: 1 }}
+                  transition={{ delay: i / 8, type: "spring", stiffness: 100 }}>
+                  <CharacterCard {...character} />
+                </motion.div>
+              )
             })
         }
       </Flex>

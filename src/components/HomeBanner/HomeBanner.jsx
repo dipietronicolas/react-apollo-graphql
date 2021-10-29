@@ -12,7 +12,7 @@ const HomeBanner = () => {
         justify="space-around" 
         flexDirection={{ base: "column-reverse", md: "row"}} 
         align="center" 
-        h={{ base: "8rem", md: "3rem"}}>
+        h={{ base: "8rem", md: "4rem"}}>
         <Box>
           <SearchBar />
         </Box>

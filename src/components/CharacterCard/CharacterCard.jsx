@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Text, Image, IconButton } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const CharacterCard = ({ id, name, image, isFav = false }) => {
@@ -9,6 +9,7 @@ const CharacterCard = ({ id, name, image, isFav = false }) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   const dispatch = useDispatch();
+  const favorites = useSelector(state => state.favorites.favCharacters)
 
   const handleDeleteButton = () => {
     dispatch({ type: 'REMOVE_CHARACTER_BY_ID', payload: id })
@@ -22,6 +23,16 @@ const CharacterCard = ({ id, name, image, isFav = false }) => {
   React.useEffect(() => {
     isFav && setIsFavorite(true);
   }, [isFav])
+
+  React.useEffect(() => {
+    setIsFavorite(
+      favorites
+        .map(favorite => favorite.id)
+        .find(favId => favId === id)
+          ? true
+          : false
+    )
+  }, [favorites, id])
 
   return (
     <Box borderWidth="1px" borderRadius="lg" p={3} mt={3} minW="xs">
