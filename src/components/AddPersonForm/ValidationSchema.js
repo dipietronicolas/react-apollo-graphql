@@ -4,20 +4,20 @@ const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{8,32})(?=.*[`!@#$%
 
 const SignupSchema = Yup.object({
   username: Yup.string()
-    .max(5, 'Must be 16 characters or less')
-    .required('Required'),
+    .required('Required')
+    .max(16, 'Must be 16 characters or less'),
   email: Yup.string()
-    .email('Invalid email address')
-    .required('Required'),
+    .required('Required')
+    .email('Invalid email address'),
   password: Yup.string()
     .required('No password provided.')
     .min(8, 'Password is too short - should be 8 chars minimum.')
     .max(32, 'Password is too long - should be 32 chars maximum.')
-    .matches(passwordRegex, 
+    .matches(passwordRegex,
       'Password must have at least one capital letter, a non capital letter, one number and a non alphanumeric character'),
   confirmPassword: Yup.string()
     .required()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match.')
 })
 
 export default SignupSchema;
