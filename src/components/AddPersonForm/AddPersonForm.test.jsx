@@ -1,33 +1,44 @@
-import { render, screen, within, waitFor, fireEvent, prettyDOM } from '@testing-library/react';
+import { render, screen, within, waitFor, fireEvent } from '@testing-library/react';
+import { prettyDOM } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
 import React from 'react';
 import AddPersonForm from './AddPersonForm';
 import userEvent from '@testing-library/user-event';
 
 describe('AddPersonForm', () => {
-  
+
   test('submits data', async () => {
 
     const handleSubmit = jest.fn();
-    render(<AddPersonForm onSubmit={handleSubmit} />)
+    const component = render(<AddPersonForm onSubmit={handleSubmit} />)
 
-    userEvent.type(screen.getByLabelText(/username/i), 'Johnasd');
-    userEvent.tab();
-    userEvent.type(screen.getByLabelText(/email/i), 'john.dee@someemail.com')
-    const passwordInput = screen.getByTestId('password');
-    fireEvent.change(passwordInput, { target: { value: "asdASD123#" } });
-    const confirmPasswordInput = screen.getByTestId(/confirmPassword/i)
-    fireEvent.change(confirmPasswordInput, { target: { value: "asdASD123#" } });    
+    await act(async () => {
+      const usernameInput = screen.getByLabelText(/username/i);
+      const emailInput = screen.getByLabelText(/email/i);
+      const passwordInput = screen.getByTestId('password');
+      const confirmPasswordInput = screen.getByTestId(/confirmPassword/i);
 
-    /*
-    await waitFor(() =>
+      await fireEvent.change(usernameInput, { target: { value: 'John' } });
+      await fireEvent.change(emailInput, { target: { value: 'asd@asd.com' } });
+      await fireEvent.change(passwordInput, { target: { value: "asdASD123#" } });
+      await fireEvent.change(confirmPasswordInput, { target: { value: "asdASD123#" } });
+
+      console.log(prettyDOM(usernameInput));
+      console.log(prettyDOM(emailInput));
+      console.log(prettyDOM(passwordInput));
+      console.log(prettyDOM(confirmPasswordInput));
+
+      const submitButton = screen.getByRole('button', {name: /submit/i});
+      fireEvent.click(submitButton);
+    })
+    
+    await waitFor(async () =>
       expect(handleSubmit).toHaveBeenCalledWith({
         username: 'John',
-        email: 'john.dee@someemail.com',
+        email: 'asd@asd.com',
         password: 'asdASD123#',
         confirmPassword: 'asdASD123#'
       }),
     )
-  */  
   })
 })

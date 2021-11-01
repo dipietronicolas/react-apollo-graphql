@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 
-const AddPersonForm = () => {
+const AddPersonForm = ({ onSubmit = () => {} }) => {
 
   const [addUser, { error, data }] = useMutation(ADD_USER, {
     client: CustomClient
@@ -56,6 +56,7 @@ const AddPersonForm = () => {
           onSubmit={(values, actions) => {
             setTimeout(() => {
               actions.setSubmitting(false);
+              onSubmit(values);
               addUser({
                 variables: {
                   username: values.username,
