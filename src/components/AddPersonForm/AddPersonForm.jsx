@@ -95,7 +95,7 @@ const AddPersonForm = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.password && form.touched.password}>
                     <FormLabel htmlFor="password" mt={6}>Password</FormLabel>
-                    <Input {...field} id="password" placeholder="Enter password" variant="flushed" type="password" />
+                    <Input {...field} id="password" placeholder="Enter password" variant="flushed" type="password" data-testid="password" />
                     <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -105,7 +105,7 @@ const AddPersonForm = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}>
                     <FormLabel htmlFor="confirmPassword" mt={6}>Confirm password</FormLabel>
-                    <Input {...field} id="confirmPassword" placeholder="Confirm password" variant="flushed" type="password" />
+                    <Input {...field} id="confirmPassword" placeholder="Confirm password" variant="flushed" type="password" data-testid="confirmPassword" />
                     <FormErrorMessage>{form.errors.confirmPassword}</FormErrorMessage>
                   </FormControl>
                 )}

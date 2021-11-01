@@ -35,6 +35,7 @@ const FavoriteCharacters = () => {
             ? data.charactersByIds.map((character) => {
               return (
                 <motion.div
+                  key={character.id}
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -42,7 +43,7 @@ const FavoriteCharacters = () => {
                     hidden: { opacity: 0 },
                   }}
                   transition={{ delay: 0.5 }}>
-                  <CharacterCard key={character.id} {...character} isFav={true} />
+                  <CharacterCard {...character} isFav={true} />
                 </motion.div>
               )
             })

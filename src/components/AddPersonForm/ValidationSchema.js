@@ -4,7 +4,7 @@ const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{8,32})(?=.*[`!@#$%
 
 const SignupSchema = Yup.object({
   username: Yup.string()
-    .max(16, 'Must be 16 characters or less')
+    .max(5, 'Must be 16 characters or less')
     .required('Required'),
   email: Yup.string()
     .email('Invalid email address')
