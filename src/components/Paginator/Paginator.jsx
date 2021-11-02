@@ -27,7 +27,7 @@ const Paginator = ({ handlePageChange }) => {
   }, [handlePageChange, currentPage])
 
   return (
-    <Center h={["15rem", "10rem"]}>
+    <Center h={["15rem", "10rem"]} mt={6}>
       <Pagination
         pagesCount={pagesCount}
         currentPage={currentPage}

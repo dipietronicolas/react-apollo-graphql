@@ -29,19 +29,22 @@ const CharacterCard = ({ id, name, image, isFav = false }) => {
       favorites
         .map(favorite => favorite.id)
         .find(favId => favId === id)
-          ? true
-          : false
+        ? true
+        : false
     )
   }, [favorites, id])
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p={3} mt={3} minW="xs">
+    <Box borderWidth="1px" borderRadius="lg" p={3} m={3} minW="xs" maxW="xs">
       <Link to={`/user/${id}`}>
         <Image src={image} alt={`${name} picture`} />
       </Link>
       <Flex justify="space-between" mt={3}>
-        <Text fontSize="xl">{name}</Text>
-        <Box>
+        <Text
+          title={name}
+          fontSize="xl"
+          isTruncated>{name}</Text>
+        <Flex flexDirection="row">
           {
             !isFav && (
               <IconButton
@@ -52,12 +55,13 @@ const CharacterCard = ({ id, name, image, isFav = false }) => {
             )
           }
           <IconButton
+            data-testid='starIcon'
             aria-label="add to favorite"
             variant="outline"
             onClick={handleFavoriteButton}
             color={isFavorite ? "teal" : "gray.200"}
             icon={<StarIcon />} />
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   )

@@ -31,12 +31,12 @@ describe('AddPersonForm', () => {
       await fireEvent.change(emailInput, { target: { value: 'asd@asd.com' } });
       await fireEvent.change(passwordInput, { target: { value: "asdASD123#" } });
       await fireEvent.change(confirmPasswordInput, { target: { value: "asdASD123#" } });
-
+/*
       console.log(prettyDOM(usernameInput));
       console.log(prettyDOM(emailInput));
       console.log(prettyDOM(passwordInput));
       console.log(prettyDOM(confirmPasswordInput));
-
+*/
       fireEvent.click(submitButton);
     })
     

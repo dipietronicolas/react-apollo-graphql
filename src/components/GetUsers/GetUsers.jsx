@@ -39,7 +39,8 @@ const GetUsers = () => {
         minH="100vh"
         justifyContent="space-around"
         alignItems="center"
-        flexWrap="wrap">
+        flexWrap="wrap"
+        px={3}>
         {
           loading && characters.length > 0
             ? <Spinner />

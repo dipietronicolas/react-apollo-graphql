@@ -6,6 +6,8 @@ import { Formik, Field, Form } from 'formik';
 import {
   Input, FormControl, InputGroup, InputRightElement, FormErrorMessage, Button
 } from '@chakra-ui/react';
+import Swal from 'sweetalert2';
+
 
 
 const SearchBar = () => {
@@ -13,13 +15,25 @@ const SearchBar = () => {
   const [searchWord, setSearchWord] = React.useState('');
   const dispatch = useDispatch();
 
-  const [search, { data }] = useLazyQuery(GET_CHARACTERS, {
+  const [search, { data, loading, error }] = useLazyQuery(GET_CHARACTERS, {
     variables: {
       filter: {
         name: searchWord
       }
     }
   });
+
+  React.useEffect(() => {
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Couldn't find any results, try something else..",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [error]);
 
   React.useEffect(() => {
     (searchWord.length > 0) && search();
@@ -42,7 +56,7 @@ const SearchBar = () => {
             {({ field, form }) => (
               <FormControl isInvalid={form.errors.search && form.touched.search}>
                 <InputGroup size="md" >
-                  <Input {...field} id="search" placeholder="Search" w={{ base: "18rem", md: "20rem"}} />
+                  <Input {...field} id="search" placeholder="Search" w={{ base: "18rem", md: "20rem" }} />
                   <FormErrorMessage>{form.errors.search}</FormErrorMessage>
                   <InputRightElement width="4.5rem" >
                     <Button
@@ -50,7 +64,7 @@ const SearchBar = () => {
                       variant="outline"
                       size="sm"
                       mr={3}
-                      isLoading={props.isSubmitting}
+                      isLoading={props.isSubmitting || loading}
                       type="submit">
                       Search!
                     </Button>
